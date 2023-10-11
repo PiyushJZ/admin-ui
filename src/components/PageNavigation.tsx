@@ -4,14 +4,19 @@ import { useStore } from '../store';
 const PageNavigation = ({ pages }: { pages: number }) => {
   const page = useStore(state => state.page);
 
-  const changePage = (clickEvent: MouseEvent<HTMLButtonElement>) => {
-    console.log(clickEvent.target);
+  const changePage = (clickEvent: MouseEvent<HTMLLIElement>) => {
+    const pageNumber = parseInt(clickEvent.currentTarget.innerHTML);
+    useStore.getState().setPage(pageNumber);
   };
-  const goToNextPage = () => {};
-  const goToPrevPage = () => {};
+  const goToNextPage = () => {
+    if (page < pages) useStore.getState().nextPage();
+  };
+  const goToPrevPage = () => {
+    if (page > 1) useStore.getState().previousPage();
+  };
 
   return (
-    <ol className='flex justify-center gap-1 text-xs font-medium'>
+    <ol className='flex justify-center p-8 gap-1 text-xs font-medium'>
       <li
         onClick={goToPrevPage}
         className='inline-flex h-8 w-8 items-center justify-center cursor-pointer rounded border border-gray-100 bg-white text-gray-900'
@@ -35,17 +40,14 @@ const PageNavigation = ({ pages }: { pages: number }) => {
         return (
           <li
             key={each}
+            onClick={changePage}
             className={`${
               page === each + 1
                 ? 'border-blue-600 bg-blue-600 text-white'
-                : 'border-gray-100 bg-white text-gray-900'
+                : 'border-gray-100 bg-white text-gray-900 cursor-pointer'
             } block h-8 w-8 rounded border text-center leading-8`}
           >
-            {page !== each + 1 ? (
-              <button onClick={changePage}>{each + 1}</button>
-            ) : (
-              `${each + 1}`
-            )}
+            {each + 1}
           </li>
         );
       })}

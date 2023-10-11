@@ -1,27 +1,11 @@
 import axios from 'axios';
 import { create } from 'zustand';
 
-type User = {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-};
-
-interface AppState {
-  page: number;
-  users: User[];
-  nextPage: () => void;
-  previousPage: () => void;
-  setPage: (pageNumber: number) => void;
-  deleteUser: (user: User) => void;
-  deleteMultipleUsers: (selectedUsers: User[]) => void;
-  fetchUsers: () => void;
-}
+import { AppState, User } from '../types';
 
 export const useStore = create<AppState>(set => ({
   page: 1,
-  users: [] as User[],
+  users: [],
 
   nextPage: () => set(state => ({ page: state.page + 1 })),
   previousPage: () => set(state => ({ page: state.page - 1 })),

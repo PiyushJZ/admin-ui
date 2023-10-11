@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { PageNavigation } from './components';
+
+import { PageNavigation, Table } from './components';
 import { useStore } from './store';
 
 const App = () => {
@@ -12,7 +13,7 @@ const App = () => {
   return (
     <>
       <div className='text-3xl capitalize text-center p-4'>admin dashboard</div>
-      {/* <Table users={users} /> */}
+      <Table users={users} />
       {users.length > 0 && (
         <PageNavigation pages={Math.ceil(users.length / 10)} />
       )}
