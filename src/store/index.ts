@@ -1,15 +1,10 @@
 import axios from 'axios';
 import { create } from 'zustand';
 
-import { AppState, User } from '../types';
+import { PageState, SearchState, User, UserState } from '../types';
 
-export const useStore = create<AppState>(set => ({
-  page: 1,
+export const useUserStore = create<UserState>(set => ({
   users: [],
-
-  nextPage: () => set(state => ({ page: state.page + 1 })),
-  previousPage: () => set(state => ({ page: state.page - 1 })),
-  setPage: (pageNumber: number) => set(() => ({ page: pageNumber })),
 
   deleteUser: (user: User) =>
     set(state => ({ users: state.users.filter(each => each.id !== user.id) })),
@@ -27,4 +22,18 @@ export const useStore = create<AppState>(set => ({
     const data: User[] = response.data;
     set(() => ({ users: data }));
   },
+}));
+
+export const usePageStore = create<PageState>(set => ({
+  page: 1,
+
+  nextPage: () => set(state => ({ page: state.page + 1 })),
+  previousPage: () => set(state => ({ page: state.page - 1 })),
+  setPage: (pageNumber: number) => set(() => ({ page: pageNumber })),
+}));
+
+export const useSearchStore = create<SearchState>(set => ({
+  searchTerm: '',
+
+  updateSearch: (term: string) => set(() => ({ searchTerm: term })),
 }));

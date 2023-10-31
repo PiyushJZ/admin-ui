@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { useStore } from '../store';
+import { usePageStore } from '../store';
 import { User } from '../types';
 
 const Table = ({ users }: { users: User[] }) => {
   const [areAllChecked, setAllChecked] = useState(false);
   const [checkboxItems, setCheckboxItem] = useState({});
-  const page = useStore(state => state.page);
+  const page = usePageStore(state => state.page);
 
   // set or unset all checkbox items
   const handleCheckboxItems = () => {
@@ -39,7 +39,7 @@ const Table = ({ users }: { users: User[] }) => {
   }, [checkboxItems]);
 
   return (
-    <div className='max-w-screen-xl mx-auto py-8 px-4 md:px-8'>
+    <div className='max-w-screen-xl mx-auto py-4 px-4 md:px-8'>
       <div className='shadow-sm border rounded-lg overflow-x-auto'>
         <table className='w-full table-auto text-sm text-left'>
           <thead className='text-gray-600 font-medium border-b'>
@@ -97,16 +97,10 @@ const Table = ({ users }: { users: User[] }) => {
                     {item.role}
                   </td>
                   <td className='text-center px-6 whitespace-nowrap'>
-                    <a
-                      href='javascript:void()'
-                      className='py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg'
-                    >
+                    <button className='py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg'>
                       Edit
-                    </a>
-                    <button
-                      href='javascript:void()'
-                      className='py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg'
-                    >
+                    </button>
+                    <button className='py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg'>
                       Delete
                     </button>
                   </td>

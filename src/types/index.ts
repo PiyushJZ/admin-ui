@@ -5,13 +5,21 @@ export type User = {
   role: string;
 };
 
-export type AppState = {
-  page: number;
+export type UserState = {
   users: User[];
-  nextPage: () => void;
-  previousPage: () => void;
-  setPage: (pageNumber: number) => void;
   deleteUser: (user: User) => void;
   deleteMultipleUsers: (selectedUsers: User[]) => void;
   fetchUsers: () => void;
+};
+
+export type PageState = {
+  page: number;
+  nextPage: () => void;
+  previousPage: () => void;
+  setPage: (pageNumber: number) => void;
+};
+
+export type SearchState = {
+  searchTerm: string;
+  updateSearch: (term: string) => void;
 };

@@ -1,22 +1,22 @@
 import { MouseEvent } from 'react';
-import { useStore } from '../store';
+import { usePageStore } from '../store';
 
 const PageNavigation = ({ pages }: { pages: number }) => {
-  const page = useStore(state => state.page);
+  const page = usePageStore(state => state.page);
 
   const changePage = (clickEvent: MouseEvent<HTMLLIElement>) => {
     const pageNumber = parseInt(clickEvent.currentTarget.innerHTML);
-    useStore.getState().setPage(pageNumber);
+    usePageStore.getState().setPage(pageNumber);
   };
   const goToNextPage = () => {
-    if (page < pages) useStore.getState().nextPage();
+    if (page < pages) usePageStore.getState().nextPage();
   };
   const goToPrevPage = () => {
-    if (page > 1) useStore.getState().previousPage();
+    if (page > 1) usePageStore.getState().previousPage();
   };
 
   return (
-    <ol className='flex justify-center p-8 gap-1 text-xs font-medium'>
+    <ol className='flex justify-center pb-2 px-8 gap-1 text-xs font-medium'>
       <li
         onClick={goToPrevPage}
         className='inline-flex h-8 w-8 items-center justify-center cursor-pointer rounded border border-gray-100 bg-white text-gray-900'

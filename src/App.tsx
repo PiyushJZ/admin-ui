@@ -1,18 +1,21 @@
 import { useEffect } from 'react';
 
-import { PageNavigation, Table } from './components';
-import { useStore } from './store';
+import { PageNavigation, Search, Table } from './components';
+import { useUserStore } from './store';
 
 const App = () => {
-  const users = useStore(state => state.users);
+  const users = useUserStore(state => state.users);
 
   useEffect(() => {
-    useStore.getState().fetchUsers();
+    useUserStore.getState().fetchUsers();
   }, []);
 
   return (
     <>
-      <div className='text-3xl capitalize text-center p-4'>admin dashboard</div>
+      <div className='text-2xl capitalize text-center pt-4'>
+        admin dashboard
+      </div>
+      <Search />
       <Table users={users} />
       {users.length > 0 && (
         <PageNavigation pages={Math.ceil(users.length / 10)} />
